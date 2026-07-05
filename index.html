@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>乐学谷 · 系统升级维护中</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f0f5ff;
+      background-image: radial-gradient(circle at 10% 20%, rgba(24, 144, 255, 0.06) 0%, transparent 50%),
+        radial-gradient(circle at 90% 80%, rgba(47, 84, 235, 0.06) 0%, transparent 50%);
+      padding: 20px;
+    }
+
+    .maintenance-card {
+      max-width: 580px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 40px;
+      padding: 52px 44px 40px;
+      box-shadow: 0 25px 60px -12px rgba(0, 40, 100, 0.25),
+                  0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+      text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+    }
+
+    .logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 28px;
+      font-size: 26px;
+      font-weight: 700;
+      color: #1a2b4a;
+      letter-spacing: -0.5px;
+    }
+
+    .logo-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, #1890ff, #2f54eb);
+      border-radius: 16px;
+      color: #fff;
+      font-size: 26px;
+      box-shadow: 0 8px 16px -4px rgba(24, 144, 255, 0.3);
+    }
+
+    .gear-icon {
+      display: inline-block;
+      font-size: 64px;
+      line-height: 1;
+      margin-bottom: 16px;
+      animation: spin 8s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    h1 {
+      font-size: 26px;
+      font-weight: 700;
+      color: #0a1a3a;
+      margin-bottom: 10px;
+      letter-spacing: -0.3px;
+    }
+
+    .subtitle {
+      font-size: 16px;
+      color: #4a5a7a;
+      line-height: 1.7;
+      margin-bottom: 24px;
+      font-weight: 450;
+    }
+
+    .subtitle strong {
+      color: #1890ff;
+      font-weight: 600;
+    }
+
+    .progress-wrapper {
+      background: #e8edf5;
+      border-radius: 100px;
+      height: 6px;
+      width: 100%;
+      max-width: 240px;
+      margin: 0 auto 28px;
+      overflow: hidden;
+      box-shadow: inset 0 1px 2px rgba(0,0,0,0.04);
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 45%;
+      background: linear-gradient(90deg, #1890ff, #2f54eb, #722ed1);
+      border-radius: 100px;
+      animation: pulse-progress 3s ease-in-out infinite;
+      box-shadow: 0 0 12px rgba(24, 144, 255, 0.25);
+    }
+
+    @keyframes pulse-progress {
+      0% { opacity: 0.7; width: 40%; }
+      50% { opacity: 1; width: 52%; }
+      100% { opacity: 0.7; width: 40%; }
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 20px 0 8px;
+      text-align: left;
+    }
+
+    .info-item {
+      background: rgba(24, 144, 255, 0.04);
+      padding: 14px 18px;
+      border-radius: 14px;
+      border: 1px solid rgba(24, 144, 255, 0.06);
+    }
+
+    .info-item .label {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      color: #8a9bb8;
+      margin-bottom: 2px;
+    }
+
+    .info-item .value {
+      font-size: 16px;
+      font-weight: 600;
+      color: #1a2b4a;
+    }
+
+    .info-item .value .highlight {
+      color: #1890ff;
+    }
+
+    .footer-note {
+      margin-top: 32px;
+      font-size: 13px;
+      color: #b0c0d8;
+      border-top: 1px solid rgba(0,0,0,0.04);
+      padding-top: 22px;
+      letter-spacing: 0.2px;
+    }
+
+    .footer-note span {
+      color: #1890ff;
+    }
+
+    @media (max-width: 480px) {
+      .maintenance-card {
+        padding: 28px 18px 24px;
+        border-radius: 28px;
+      }
+      .logo { font-size: 22px; }
+      .logo-icon { width: 40px; height: 40px; font-size: 20px; }
+      .gear-icon { font-size: 48px; }
+      h1 { font-size: 20px; }
+      .subtitle { font-size: 14px; }
+      .info-grid {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+    }
+
+    .deco-dot {
+      position: fixed;
+      border-radius: 50%;
+      pointer-events: none;
+      background: rgba(24, 144, 255, 0.06);
+    }
+    .deco-dot:nth-child(1) { width: 180px; height: 180px; top: -40px; right: -40px; }
+    .deco-dot:nth-child(2) { width: 120px; height: 120px; bottom: -20px; left: -20px; background: rgba(47, 84, 235, 0.04); }
+  </style>
+</head>
+<body>
+
+  <div class="deco-dot"></div>
+  <div class="deco-dot"></div>
+
+  <div class="maintenance-card">
+    <div class="logo">
+      <span class="logo-icon">🎓</span>
+      <span>乐学谷</span>
+    </div>
+
+    <div class="gear-icon">⚙️</div>
+
+    <h1>系统升级维护中</h1>
+    <p class="subtitle">
+      为了给你更好的学习体验，我们正在对平台进行<strong>全面升级</strong>。<br />
+      预计 <strong>下周三（7月9日）18:00</strong> 前恢复访问。
+    </p>
+
+    <div class="progress-wrapper">
+      <div class="progress-bar"></div>
+    </div>
+
+    <div class="info-grid">
+      <div class="info-item">
+        <div class="label">🕒 维护开始</div>
+        <div class="value">2026-07-05 14:00</div>
+      </div>
+      <div class="info-item">
+        <div class="label">🚀 预计恢复</div>
+        <div class="value"><span class="highlight">7月9日 18:00</span></div>
+      </div>
+      <div class="info-item">
+        <div class="label">📦 更新内容</div>
+        <div class="value">性能优化 · 题库升级</div>
+      </div>
+      <div class="info-item">
+        <div class="label">👥 影响范围</div>
+        <div class="value">全平台用户</div>
+      </div>
+    </div>
+
+    <div class="footer-note">
+      <span>❤️</span> 乐学谷技术团队 · 每一次升级，只为更好的你
+    </div>
+  </div>
+
+</body>
+</html>
